@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import graphql.ExecutionResult;
-import htt.com.social_network_backend.graphqlservice.UserGraphQLService;
+import htt.com.social_network_backend.graphql_provider.UserProvider;
 
 @RestController
 @RequestMapping("/api")
 public class HomeController {
 
 	@Autowired
-	UserGraphQLService userGraphQLService;
+	UserProvider userGraphQLService;
 	
 	@PostMapping("/user")
 	public ResponseEntity<Object> getAllUser(@RequestBody String query){

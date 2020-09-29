@@ -1,7 +1,6 @@
-package htt.com.social_network_backend.graphqlservice;
+package htt.com.social_network_backend.graphql_provider;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -11,23 +10,20 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import graphql.GraphQL;
-import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import htt.com.social_network_backend.model.UserModel;
-import htt.com.social_network_backend.service.UserService;
+import htt.com.social_network_backend.datafetcher.UserDataFetcher;
 
 @Service
-public class UserGraphQLService {
+public class UserProvider {
 
         private GraphQL graphQL;
 
         @Autowired
-        UserService userService;
+        UserDataFetcher userDataFetcher;
 
         @Value("classpath:graphql/user.graphql")
         Resource resource;
@@ -47,14 +43,8 @@ public class UserGraphQLService {
         private RuntimeWiring buildRuntimeWiring() {
                 return RuntimeWiring.newRuntimeWiring()
                         .type("Query", typeWiring -> typeWiring
-                                .dataFetcher("getAll", new DataFetcher<List<UserModel>>() {
-                                        @Override
-                                        public List<UserModel> get(DataFetchingEnvironment environment) {
-                                                // String isn = environment.getArgument("id");
-                                                return userService.getAll();
-
-                                        }
-                                }))
+                                .dataFetcher("getAll", userDataFetcher.getAll())
+                                .dataFetcher("getById", userDataFetcher.getById()))
                         .build();
         }
 

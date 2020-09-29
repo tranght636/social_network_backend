@@ -7,5 +7,7 @@ import htt.com.social_network_backend.model.UserModel;
 @Mapper
 public interface UserMapper {
 	public List<UserModel> getAllUser();
+
+	public UserModel getById(Integer id);
 	
 }

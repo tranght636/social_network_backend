@@ -3,10 +3,11 @@ schema {
 }
 
 type Query {
-  getAll: [UserModel]
+  getAll: [Users]
+  getById(id: Int): Users
 }
 
-type UserModel {
+type Users {
   id: Int
   username: String
   password: String

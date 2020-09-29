@@ -3,7 +3,11 @@
 
 <mapper namespace="htt.com.social_network_backend.mapper.UserMapper">
     <select id="getAllUser" resultMap="result">
-        select * from user
+        select * from users
+    </select>
+
+    <select id="getById" parameterType="integer" resultMap="result">
+        select * from users where id = #{id}
     </select>
 
     <resultMap id="result" type="UserModel" />

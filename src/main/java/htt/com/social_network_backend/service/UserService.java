@@ -16,4 +16,8 @@ public class UserService {
 	public List<UserModel> getAll(){
 		return userMapper.getAllUser();
 	}
+
+	public UserModel getById(Integer id){
+		return userMapper.getById(id);
+	}
 }
